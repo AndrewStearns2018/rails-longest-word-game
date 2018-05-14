@@ -9,13 +9,15 @@
     </ul>
   </div>
   <div>
-    <form action="score" method="post">
+    <form action="score" method="POST">
       <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+      <%= hidden_field_tag :letters, @letters %>
+      <!-- This is how you get the letters of the grid to be output by the form.
+      Otherwisem the @letters of the control are just reset every time. -->
       <!-- This authenticity token is essential for post.
         The action refers back to the router post 'score',
         which is linked to the controller score method.-->
       <input type="text" name= "our_word" placeholder="longest word here">
-      <input id="token" name="our_letters" type="hidden" value="our_letters"/>
       <input type="submit" value="play">
     </form>
   </div>

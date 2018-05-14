@@ -11,6 +11,21 @@ class GamesController < ApplicationController
     @letters
   end
 
+
+
+  def score
+    @our_word = params[:our_word].upcase
+    @letters = params[:letters]
+    @is_in_new = is_in_new?(@our_word, @letters)
+    @is_english = is_english?(@our_word)
+  end
+
+    # In order to use the methods that I wrote below in the view,
+    # they need to be transformed into instance variables, which can be passed
+    # into the view.
+
+  private
+
   def is_in_new?(string, grid)
   score_hash = {}
   grid_hash = {}
@@ -43,21 +58,5 @@ class GamesController < ApplicationController
     url = "https://wagon-dictionary.herokuapp.com/#{string}"
     potential_word = JSON.parse(open(url).read)
     potential_word["found"] == true
-  end
-
-
-  def score
-    @our_word = params[:our_word]
-    @our_letters = params[:our_letters]
-
-    if is_in_new?(@our_word, @our_letters) && is_english?(@our_word)
-      return "Good, this is a valid word"
-    elsif !is_in_new?(@our_word, @our_letters) && is_english?(@our_word)
-      return "Word can't be made from grid, but is a word"
-    elsif !is_english?(@our_word) && is_in_new?(@our_word, @our_letters)
-      return "This is from the grid, but not a real word"
-    else
-      return "Neither valid nor real word"
-    end
   end
 end
