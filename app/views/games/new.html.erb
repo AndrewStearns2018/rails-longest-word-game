@@ -1,0 +1,22 @@
+
+<div class="container" style="display: flex; flex-direction: column; justify-content: center; align-items: center; margin: 25px;">
+  <div><h1>New Game!</h1></div>
+  <div>
+    <ul class="list-inline">
+      <% @letters.each do |letter| %>
+      <li class="btn btn-primary"><%= letter %></li>
+      <% end  %>
+    </ul>
+  </div>
+  <div>
+    <form action="score" method="post">
+      <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+      <!-- This authenticity token is essential for post.
+        The action refers back to the router post 'score',
+        which is linked to the controller score method.-->
+
+      <input type="text" name= "word" placeholder="longest word here">
+      <input type="submit" value="play">
+    </form>
+  </div>
+</div>
